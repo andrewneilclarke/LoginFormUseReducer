@@ -53,7 +53,7 @@ const initialState = {
     loggedin: false,
 }
 
-const LoginForm: React.FC = () => {
+const LoginFormUseReducer: React.FC = () => {
     const [state, dispatch] = useReducer(loginReducer, initialState)
     const { name, password, isLoading, error, loggedin } = state;
 
@@ -82,10 +82,7 @@ const LoginForm: React.FC = () => {
                 <button onClick={logout}>Logout</button>
             </> :
                 <form onSubmit={loginUser}>
-                    <input type="text" name="name" id="name" placeholder="name" value={name} onChange={(e) => {
-                        console.log('change')
-                        dispatch({ type: 'field', fieldName: 'name', payload: e.target.value, })
-                    }} />
+                    <input type="text" name="name" id="name" placeholder="name" value={name} onChange={(e) => dispatch({ type: 'field', fieldName: 'name', payload: e.target.value, })} />
                     <input type="password" name="password" id="password" placeholder="password" value={password} onChange={(e) => dispatch({ type: 'field', fieldName: 'password', payload: e.target.value, })} />
                     <button type="submit" disabled={isLoading}>{isLoading ? 'Logging in...' : 'Login'}</button>
                 </form>
@@ -94,4 +91,4 @@ const LoginForm: React.FC = () => {
     )
 }
 
-export default LoginForm
+export default LoginFormUseReducer
