@@ -1,5 +1,51 @@
+import { TextField, Button } from '@mui/material'
 import { useReducer } from 'react'
 import { login } from './utils'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+
+declare module '@mui/material/styles' {
+    interface Theme {
+        status: {
+            danger: React.CSSProperties['color'];
+        };
+    }
+
+    interface Palette {
+        neutral: Palette['primary'];
+    }
+    interface PaletteOptions {
+        neutral: PaletteOptions['primary'];
+    }
+
+    interface PaletteColor {
+        darker?: string;
+    }
+    interface SimplePaletteColorOptions {
+        darker?: string;
+    }
+    interface ThemeOptions {
+        status: {
+            danger: React.CSSProperties['color'];
+        };
+    }
+}
+
+const theme = createTheme({
+    status: {
+        danger: '#e53e3e',
+    },
+    palette: {
+        primary: {
+            main: '#0971f1',
+            darker: '#053e85',
+        },
+        neutral: {
+            main: '#64748B',
+            contrastText: '#fff',
+        },
+    },
+});
 
 const loginReducer = (state: any, action: any) => {
     switch (action.type) {
@@ -82,9 +128,11 @@ const LoginFormUseReducer: React.FC = () => {
                 <button onClick={logout}>Logout</button>
             </> :
                 <form onSubmit={loginUser}>
-                    <input type="text" name="name" id="name" placeholder="name" value={name} onChange={(e) => dispatch({ type: 'field', fieldName: 'name', payload: e.target.value, })} />
-                    <input type="password" name="password" id="password" placeholder="password" value={password} onChange={(e) => dispatch({ type: 'field', fieldName: 'password', payload: e.target.value, })} />
-                    <button type="submit" disabled={isLoading}>{isLoading ? 'Logging in...' : 'Login'}</button>
+                    <TextField type="text" name="name" id="outlined-basic" label="name" variant="outlined" placeholder="name" value={name} onChange={(e) => dispatch({ type: 'field', fieldName: 'name', payload: e.target.value, })} />
+                    <TextField type="password" name="password" id="outlined-basic" label="password" variant="outlined" placeholder="password" value={password} onChange={(e) => dispatch({ type: 'field', fieldName: 'password', payload: e.target.value, })} />
+                    <ThemeProvider theme={theme}>
+                        <Button type="submit" size="large" color='info' disabled={isLoading} variant="contained">{isLoading ? 'Logging in...' : 'Login'}</Button>
+                    </ThemeProvider>
                 </form>
             }
         </>

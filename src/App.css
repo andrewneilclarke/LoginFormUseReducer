@@ -16,13 +16,19 @@
   text-align: center;
   width: 26em;
   border: 1px solid black;
-  padding: 2em;
-  font-weight: 600;
-  font-size: x-large;
+  padding: 6em;
+  font-weight: 300;
+  font-size: normal;
 }
 
 .App form input {
-  margin: 1em 0;
+  /* margin: 1em 0; */
+}
+.App form div {
+  margin-bottom: 20px;
+}
+.App form div label {
+  font-size: 1.1em;
 }
 
 .error {
