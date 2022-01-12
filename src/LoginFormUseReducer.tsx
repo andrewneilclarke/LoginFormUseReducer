@@ -1,5 +1,5 @@
-import { TextField, Button } from '@mui/material'
-import { useReducer } from 'react'
+import { TextField, Button, Modal, Box, Typography } from '@mui/material'
+import { useReducer, useState } from 'react'
 import { login } from './utils'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -46,6 +46,17 @@ const theme = createTheme({
         },
     },
 });
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const loginReducer = (state: any, action: any) => {
     switch (action.type) {
@@ -103,6 +114,7 @@ const LoginFormUseReducer: React.FC = () => {
     const [state, dispatch] = useReducer(loginReducer, initialState)
     const { name, password, isLoading, error, loggedin } = state;
 
+
     const loginUser = async (e: any) => {
         e.preventDefault();
         dispatch({ type: 'login' })
@@ -121,7 +133,6 @@ const LoginFormUseReducer: React.FC = () => {
     return (
         <>
             <h1>React Typescript Form with useReducer actions</h1>
-
             {error && <p className="error">{error}</p>}
             {loggedin ? <>
                 <p>Welcome, {name}</p>
